@@ -129,15 +129,15 @@ applicationDistribution.from(copyTests) {
 }
 
 //jar construction tasks
-jar {
-  manifest { 
-    attributes "Main-Class": "$mainClassName"
-  }  
-
-  from {
-    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-  }
-}
+//jar {
+//  manifest { 
+//    attributes "Main-Class": "$mainClassName"
+//  }  
+//
+//  from {
+//    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//  }
+//}
 
 /*jar{
 	manifest{
@@ -146,6 +146,7 @@ jar {
 		'Implementation-Version': version
 	}
 }
+
 
 task sourceJar(type: Jar){
 	classifier = 'sources'
