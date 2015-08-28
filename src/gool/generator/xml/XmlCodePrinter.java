@@ -79,7 +79,7 @@ public class XmlCodePrinter extends CodePrinter {
 
 	private Set<ClassDef> printedClasses = new HashSet<ClassDef>();
 
-	@Override
+	/*@Override
 	public List<File> print(ClassDef pclass) throws FileNotFoundException {
 		Document document = null;
 		DocumentBuilderFactory fabrique = null;
@@ -138,7 +138,7 @@ public class XmlCodePrinter extends CodePrinter {
 		}
 
 		return result;
-	}
+	}*/
 
 	/**
 	 * Translate GOOL node to XML Element.
@@ -261,11 +261,11 @@ public class XmlCodePrinter extends CodePrinter {
 		return newElement;
 	}
 
-	@Override
+	/*@Override
 	public Collection<File> print(Collection<ClassDef> generatedClassDefs,
 			boolean isGool) throws FileNotFoundException {
 		return super.print(generatedClassDefs, isGool);
-	}
+	}*/
 
 	@Override
 	public String getFileName(String className) {

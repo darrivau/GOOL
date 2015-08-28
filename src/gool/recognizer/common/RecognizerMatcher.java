@@ -157,8 +157,7 @@ public class RecognizerMatcher {
 		ArrayList<String> imports = new ArrayList<String>();
 		
 		try {
-			InputStream ips = new FileInputStream(
-					getPathOfInputImportMatchFile());
+			InputStream ips = new FileInputStream("/home/charbel/Java/Workspace/GOOLSRC/src/ImportMatching.properties");
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
 			String line;
@@ -188,8 +187,7 @@ public class RecognizerMatcher {
 		ArrayList<String> goolClasses = new ArrayList<String>();
 		
 		try {
-			InputStream ips = new FileInputStream(
-					getPathOfInputImportMatchFile());
+			InputStream ips = new FileInputStream("/home/charbel/Java/Workspace/GOOLSRC/src/ImportMatching.properties");
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
 			String line;
@@ -305,10 +303,10 @@ public class RecognizerMatcher {
 				+ "/matching/" + goolPackageName + "/";
 	}
 
-	static private String getPathOfInputImportMatchFile() {
+	/*static private String getPathOfInputImportMatchFile() {
 		return "src/gool/recognizer/" + InputLang.toString().toLowerCase()
 				+ "/matching/ImportMatching.properties";
-	}
+	}*/
 
 	static private String getPathOfInputClassMatchFile(String goolClass) {
 		return getPathOfInputMatchDir(goolClass) + "ClassMatching.properties";

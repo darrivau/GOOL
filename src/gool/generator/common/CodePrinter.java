@@ -242,18 +242,23 @@ public abstract class CodePrinter {
 	 *             Side-effects: updates the list of abstract GOOL classes that
 	 *             have been processed
 	 */
-	public List<File> print(ClassDef pclass) throws FileNotFoundException {
+	public Map<String, String> print(ClassDef pclass) throws FileNotFoundException {
+		
+		Map <String, String> result = new HashMap<String, String>();
+		
 		// GOOL library classes are printed in a different manner
-		if(pclass.isGoolLibraryClass()){
+		/*if(pclass.isGoolLibraryClass()){
 			return printGoolLibraryClass(pclass);
-		}
+		}*/
 		
 		/*
 		 * Delegate the code generation to the ClassDef object, which may decide
 		 * that the currentPrinter need be changed since platforms are decided
 		 * on a per class basis
 		 */
-		String code = pclass.getCode();
+		result.put(pclass.getName() + ".cpp", pclass.getCode());
+		
+		//String code = pclass.getCode();
 
 		// file separator is just a slash in Unix
 		// so the second argument to File() is just the directory
@@ -261,7 +266,7 @@ public abstract class CodePrinter {
 		// the first argument is the default output directory of the platform
 		// so the directory name ends up being something like
 		// GOOLOUPTUTTARGET/pack/age
-		File dir = new File(getOutputDir().getAbsolutePath(),
+		/*File dir = new File(getOutputDir().getAbsolutePath(),
 				StringUtils.replace(pclass.getPackageName(), ".",
 						File.separator));
 		// Typically the outputdir was created before, but not the package
@@ -271,23 +276,26 @@ public abstract class CodePrinter {
 		File classFile = new File(dir, getFileName(pclass.getName()));
 		Log.i(String.format("Writing to file %s", classFile));
 		PrintWriter writer = new PrintWriter(classFile);
+		
 		writer.println(code);
 		writer.close();
 		// Remember that you did the generation for this one abstract GOOL class
 		printedClasses.add(pclass);
 		// Put the generated class into the result list
 		List<File> result = new ArrayList<File>();
-		result.add(classFile);
+		result.add(classFile);*/
 		// Go through the dependencies
 		// If they are abstract GOOL classes and have not been generated, do
 		// that
 		// And add the generated classes into the result list
-		for (Dependency dependency : pclass.getDependencies()) {
+		/*for (Dependency dependency : pclass.getDependencies()) {
 			if (!printedClasses.contains(dependency)
 					&& dependency instanceof ClassDef) {
 				result.addAll(print((ClassDef) dependency));
 			}
-		}
+		}*/
+		
+		
 		return result;
 	}
 	
@@ -379,7 +387,7 @@ public abstract class CodePrinter {
 		return codePrinters.keySet();
 	}
 
-	public Collection<File> print(Collection<ClassDef> generatedClassDefs,
+	/*public Collection<File> print(Collection<ClassDef> generatedClassDefs,
 			boolean isGool) throws FileNotFoundException {
 		Collection<File> result = new ArrayList<File>();
 		for (ClassDef classDef : generatedClassDefs) {
@@ -387,7 +395,7 @@ public abstract class CodePrinter {
 		}
 
 		return result;
-	}
+	}*/
 
 	private boolean CopierFichier(File Source, File Destination)
 			throws FileNotFoundException {

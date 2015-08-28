@@ -96,9 +96,9 @@ public class GeneratorHelper {
 	 * classDefs Listing them as a map (platform, file) in case there where
 	 * different target platforms For different classes.
 	 */
-	public static Map<Platform, List<File>> printClassDefs(
+	public static Map<String, String> printClassDefs(
 			Collection<ClassDef> classDefs) throws FileNotFoundException {
-		Map<Platform, List<File>> compilationUnits = new HashMap<Platform, List<File>>();
+		Map<String, String> compilationUnits = new HashMap<String, String>();
 
 		for (ClassDef classDef : classDefs) {
 
@@ -107,22 +107,22 @@ public class GeneratorHelper {
 			// Get a codePrinter corresponding to that platform.
 			CodePrinter currentPrinter = CodePrinter.getPrinter(platform);
 			// If that platform is not yet in the map, add it.
-			if (!compilationUnits.containsKey(platform)) {
+			/*if (!compilationUnits.containsKey(platform)) {
 				compilationUnits.put(platform, new ArrayList<File>());
-			}
+			}*/
 			// If the target output directory is not there yet, make it.
-			if (!currentPrinter.getOutputDir().exists()) {
+			/*if (!currentPrinter.getOutputDir().exists()) {
 				Log.i("Creating the output directory "
 						+ currentPrinter.getOutputDir());
 				currentPrinter.getOutputDir().mkdirs();
-			}
+			}*/
 
 			// Just compile each abstract GOOL class and add it to the map.
 
 			// try {
 			
 			GeneratorMatcher.init(platform);
-			compilationUnits.get(platform).addAll(
+			compilationUnits.putAll(
 					currentPrinter.print(classDef));
 			
 			
@@ -141,14 +141,14 @@ public class GeneratorHelper {
 		// If the platform is android a project has to be created and the files
 		// created
 		// above copied into the project.
-		if (compilationUnits.containsKey(AndroidPlatform.getInstance())) {
+		/*if (compilationUnits.containsKey(AndroidPlatform.getInstance())) {
 			Platform platform = AndroidPlatform.getInstance();
 			AndroidCodePrinter currentPrinter = (AndroidCodePrinter) CodePrinter
 					.getPrinter(platform);
 			List<File> newFileList = currentPrinter
 					.createAndroidProject(compilationUnits.get(platform));
 			compilationUnits.put(platform, newFileList);
-		}
+		}*/
 		return compilationUnits;
 	}
 

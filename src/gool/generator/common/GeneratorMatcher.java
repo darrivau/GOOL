@@ -95,8 +95,7 @@ public class GeneratorMatcher {
 	
 	public static ArrayList<String> matchImports(String goolClass){
 		try {
-			InputStream ips = new FileInputStream(
-					getPathOfOutputImportMatchFile(goolClass));
+			InputStream ips = new FileInputStream("/home/charbel/Java/Workspace/GOOLSRC/src/ImportMatching.properties");
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
 			String line;
@@ -140,11 +139,11 @@ public class GeneratorMatcher {
 				+ implementationFileName;
 	}
 
-	static private String getPathOfOutputImportMatchFile(String goolClass) {
+	/*static private String getPathOfOutputImportMatchFile(String goolClass) {
 		return getPathOfOutputMatchDir(goolClass.substring(0,
 				goolClass.lastIndexOf(".")))
 				+ "ImportMatching.properties";
-	}
+	}*/
 
 	static private String removeSpaces(String line) {
 		for (int i = 0; i < line.length(); i++) {

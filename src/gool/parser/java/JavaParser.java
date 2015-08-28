@@ -95,7 +95,10 @@ public class JavaParser extends ParseGOOL {
 		}
 		// further, add the GOOL library as a dependency
 		// so that the program can use gool.imports.java
-		stringDependencies.add(Settings.get("gool_library").toString());
+		//****** modifs charbel ******
+		//TODO: test de parametre dur (Settings.get("gool_library").toString())=(gool.jar)
+		//****************************
+		stringDependencies.add("gool.jar");
 
 		// with the dependencies all set, we can make up the options
 		List<String> options = Arrays.asList("-classpath",

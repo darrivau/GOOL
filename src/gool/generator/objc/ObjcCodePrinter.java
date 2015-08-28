@@ -49,7 +49,7 @@ public class ObjcCodePrinter extends CodePrinter {
 		return className + ".m";
 	}
 
-	@Override
+	/*@Override
 	public List<File> print(ClassDef pclass) throws FileNotFoundException {
 		if (pclass.getParentClass() != null) {
 			pclass.setParentClass(pclass.getParentClass());
@@ -76,6 +76,6 @@ public class ObjcCodePrinter extends CodePrinter {
 			return super.print(pclass);
 		}
 
-	}
+	}*/
 
 }

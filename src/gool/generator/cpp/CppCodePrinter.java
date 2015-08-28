@@ -33,7 +33,9 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import logger.Log;
 
@@ -89,12 +91,13 @@ public class CppCodePrinter extends CodePrinter {
 	}
 
 	@Override
-	public List<File> print(ClassDef pclass) throws FileNotFoundException {
+	public Map<String, String> print(ClassDef pclass) throws FileNotFoundException {
 
+		Map<String, String> completeClassList = new HashMap<String, String>();
 		// GOOL library classes are printed in a different manner
-		if (pclass.isGoolLibraryClass()) {
+		/*if (pclass.isGoolLibraryClass()) {
 			return printGoolLibraryClass(pclass);
-		}
+		}*/
 		/*
 		 * In C++ the parent class and the interfaces are used in the same
 		 * statement. Example: class Foo : public ClassBar1, InterfaceBar2 ...
@@ -105,7 +108,11 @@ public class CppCodePrinter extends CodePrinter {
 			pclass.getInterfaces().add(0, pclass.getParentClass());
 		}
 
-		String headerFile = processTemplate("header.vm", pclass);
+		completeClassList.put(pclass.getName() + ".h", processTemplate("header.vm", pclass));
+
+		completeClassList.putAll(super.print(pclass));
+		
+		/*String headerFile = processTemplate("header.vm", pclass);
 		PrintWriter writer;
 
 		File dir = new File(getOutputDir().getAbsolutePath(),
@@ -116,19 +123,21 @@ public class CppCodePrinter extends CodePrinter {
 
 		writer = new PrintWriter(classFile);
 		writer.println(headerFile);
-		writer.close();
+		writer.close();*/
 
 		/*
 		 * Only generate header files if this element is an interface or an
 		 * enumeration.
 		 */
-		if (pclass.isEnum() || pclass.isInterface()) {
+		/*if (pclass.isEnum() || pclass.isInterface()) {
 			List<File> r = new ArrayList<File>();
 			r.add(classFile);
+			System.out.println("789");
+			
 			return r;
-		} else {
-			return super.print(pclass);
-		}
+		} else {*/
+			return completeClassList;
+		//}
 	}
 
 	@Override

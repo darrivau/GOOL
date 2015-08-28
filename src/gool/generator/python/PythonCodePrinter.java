@@ -88,14 +88,14 @@ public class PythonCodePrinter extends CodePrinter {
 		return "";
 	}
 
-	@Override
+	/*@Override
 	public List<File> print(ClassDef pclass) throws FileNotFoundException {
 		List<File> res = super.print(pclass);
 
 		createInitFile(getOutputDir());
 
 		return res;
-	}
+	}*/
 
 	private void createInitFile(File dir) {
 		File[] dirs = dir.listFiles(new FileFilter() {

@@ -57,13 +57,13 @@ public class AndroidCodePrinter extends CodePrinter {
 		return className + ".java";
 	}
 
-	@Override
-	public List<File> print(ClassDef pclass) throws FileNotFoundException {
-		/*
+	//@Override
+	/*public List<File> print(ClassDef pclass) throws FileNotFoundException {
+		
 		 * As the implementation of Android necessitates that an additional file
 		 * "Activity" be created if the class contains the main method this
 		 * method is overridden to check for this
-		 */
+		 
 		String code = pclass.getCode();
 		List<File> result = new ArrayList<File>();
 
@@ -84,16 +84,16 @@ public class AndroidCodePrinter extends CodePrinter {
 		PrintWriter writer = new PrintWriter(classFile);
 		writer.println(code);
 		writer.close();
-		/*
+		
 		 * This part checks whether the class contains a main method/entry point
 		 * as well as creating the class that will be equivalent to sysOut.
-		 */
+		 
 		if (pclass.isMainClass()) { // Check if class contains main method and
 									// if yes create activity class as well
-			/**
+			
 			 * As standard each .java file with a main method will have a
 			 * corresponding *Activity.java file
-			 */
+			 
 			File activityFile = new File(dir, getFileName(pclass.getName())
 					.replace(".java", "Activity.java"));
 			writer = new PrintWriter(activityFile);
@@ -102,12 +102,12 @@ public class AndroidCodePrinter extends CodePrinter {
 			writer.close();
 			// Put the generated class into the result list
 			result.add(activityFile);
-			/*
+			
 			 * After this it checks whether a PrintOut class has been made yet
 			 * and if not creates it. The reason why it is done here is because
 			 * most of the time there will only be one main class and this step
 			 * won't be repeated Unnecessarily
-			 */
+			 
 			File printOutFile = new File(dir, "PrintOut.java");
 			if (!printOutFile.exists()) {
 				writer = new PrintWriter(printOutFile);
@@ -135,9 +135,9 @@ public class AndroidCodePrinter extends CodePrinter {
 			}
 		}
 		return result;
-	}
+	}*/
 
-	public List<File> createAndroidProject(List<File> currentFilelist) {
+	/*public List<File> createAndroidProject(List<File> currentFilelist) {
 
 		File oldAndroidFolder = new File(Settings.get("android_out_dir"));
 		File newAndroidFolder = new File(Settings.get("android_out_dir_final"));
@@ -278,7 +278,7 @@ public class AndroidCodePrinter extends CodePrinter {
 	 * @param mainClassFiles
 	 * @return
 	 */
-	private void populateMainMethodClasses(File mainFolder,
+	/*private void populateMainMethodClasses(File mainFolder,
 			List<File> mainClassFiles) {
 		File[] tempFileList = mainFolder.listFiles();
 		for (File tempFile : tempFileList) {
@@ -291,5 +291,5 @@ public class AndroidCodePrinter extends CodePrinter {
 			}
 		}
 
-	}
+	}*/
 }

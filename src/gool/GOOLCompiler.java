@@ -62,7 +62,7 @@ public class GOOLCompiler {
 	/**
 	 * The main - parse input arguments and launch the translation
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Boolean isGuiActive = false;
 		for(int i = 0; i < args.length; i++){
 			if(args[i].equalsIgnoreCase("-gui"))
@@ -72,18 +72,64 @@ public class GOOLCompiler {
 			Settings.launchGuiSetter();
 		else
 			launchTranslation();
-	}
+	}*/
 
+	//Programm entry was rewritten for gool translate front end compatibility
+	// TODO
+	
+	/**
+	 * Constructeur par defaut (explicitement créé en cas de futur implementations, vide pour le moment)
+	 */
+	public GOOLCompiler () {
+		
+		
+		
+	}
+	
+	/**
+	 * 
+	 * @param inputLang
+	 * @param outputLang
+	 * @param content
+	 */
+
+	public Map<String, String> launchHTMLTranslation (String inputLang, String outputLang, String input) throws Exception {
+		
+		ParseGOOL Parser = null;
+		Collection<ClassDef> GOOLPort = null;
+		Map<String, String> toTarget = null;
+		
+		if (inputLang.equalsIgnoreCase("java")) {
+			
+			Parser = new JavaParser();
+			
+			if (outputLang.equalsIgnoreCase("c++")) {
+				
+				GOOLPort = concretePlatformeToAbstractGool(
+							Parser,
+							CppPlatform.getInstance(),
+							input
+							);
+					
+				toTarget = GeneratorHelper.printClassDefs(GOOLPort);
+					
+			}
+			
+		}
+		
+		return toTarget;
+		
+	}
+	
 	/**
 	 * Launch the translation : gets the folder to open from Settings - opens the files -
 	 * creates an instance of this class - triggers it upon the files, with
 	 * argument the target platform.
 	 */
-
-	public static void launchTranslation(){
+	public void launchTranslation(String langue, String contenu){
 		//------------------------------------//
 		//------------ JAVA INPUT ------------//
-		if(Settings.get("input_langage").equalsIgnoreCase("java")){
+		if(langue.equalsIgnoreCase("java")){
 			try {
 				File folder = new File(Settings.get("java_in_dir"));
 				Collection<File> files = getFilesInFolder(folder, "java");
@@ -106,16 +152,16 @@ public class GOOLCompiler {
 				Collection<File> filesNonChange = getFilesInFolderNonExe(folder,
 						extToNCopy);
 
-				GOOLCompiler gc=new GOOLCompiler();
+				//GOOLCompiler gc=new GOOLCompiler();
 
 				// JAVA input -> JAVA output
-				gc.runGOOLCompiler(new JavaParser(), JavaPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new JavaParser(), JavaPlatform.getInstance(filesNonChange), files);
 				// JAVA input -> CSharp output
-				gc.runGOOLCompiler(new JavaParser(), CSharpPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new JavaParser(), CSharpPlatform.getInstance(filesNonChange), files);
 				// JAVA input -> CPP output
-				gc.runGOOLCompiler(new JavaParser(), CppPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new JavaParser(), CppPlatform.getInstance(filesNonChange), files);
 				// JAVA input -> PYTHON output
-				gc.runGOOLCompiler(new JavaParser(), PythonPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new JavaParser(), PythonPlatform.getInstance(filesNonChange), files);
 
 				// JAVA input -> XML output
 				//gc.runGOOLCompiler(new JavaParser(), XmlPlatform.getInstance(filesNonChange), files);
@@ -124,7 +170,7 @@ public class GOOLCompiler {
 				//gc.runGOOLCompiler(new JavaParser(), AndroidPlatform.getInstance(), files);
 
 				// JAVA input -> OBJC output
-				gc.runGOOLCompiler(new JavaParser(), ObjcPlatform.getInstance(), files);
+				/*gc.*///runGOOLCompiler(new JavaParser(), ObjcPlatform.getInstance(), files);
 
 			} catch (Exception e) {
 				Log.e(e);
@@ -156,14 +202,14 @@ public class GOOLCompiler {
 				Collection<File> filesNonChange = getFilesInFolderNonExe(folder,
 						extToNCopy);
 
-				GOOLCompiler gc=new GOOLCompiler();
+				//GOOLCompiler gc=new GOOLCompiler();
 
 				// CPP input -> JAVA output
-				gc.runGOOLCompiler(new CppParser(), JavaPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new CppParser(), JavaPlatform.getInstance(filesNonChange), files);
 				// CPP input -> CSharp output
-				gc.runGOOLCompiler(new CppParser(), CSharpPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new CppParser(), CSharpPlatform.getInstance(filesNonChange), files);
 				// CPP input -> CPP output
-				gc.runGOOLCompiler(new CppParser(), CppPlatform.getInstance(filesNonChange), files);
+				/*gc.*///runGOOLCompiler(new CppParser(), CppPlatform.getInstance(filesNonChange), files);
 				// CPP input -> PYTHON output
 				//gc.runGOOLCompiler(new CppParser(), PythonPlatform.getInstance(filesNonChange), files);
 				// CPP input -> XML output
@@ -173,7 +219,7 @@ public class GOOLCompiler {
 				// CPP input -> ANDROID output
 				//gc.runGOOLCompiler(new CppParser(), AndroidPlatform.getInstance(), files);
 				// CPP input -> OBJC output
-				gc.runGOOLCompiler(new CppParser(), ObjcPlatform.getInstance(), files);
+				/*gc.*///runGOOLCompiler(new CppParser(), ObjcPlatform.getInstance(), files);
 
 			} catch (Exception e) {
 				Log.e(e);
@@ -190,7 +236,7 @@ public class GOOLCompiler {
 	 * @return 
 	 * 			The collection of files with the specific extension in the folder tree.
 	 */
-	public static Collection<File> getFilesInFolder(File folder, String ext) {
+	public Collection<File> getFilesInFolder(File folder, String ext) {
 		Collection<File> files = new ArrayList<File>();
 		for (File f : folder.listFiles()) {
 			if (f.isDirectory()) {
@@ -211,7 +257,7 @@ public class GOOLCompiler {
 	 * @return 
 	 * 			The collection of files with the specific extensions in the folder tree.
 	 */
-	private static Collection<File> getFilesInFolderNonExe(File folder,
+	private Collection<File> getFilesInFolderNonExe(File folder,
 			ArrayList<String> ext) {
 
 		Collection<File> files = new ArrayList<File>();
@@ -252,10 +298,10 @@ public class GOOLCompiler {
 	 * @return a map of the compiled files for the different platforms
 	 * @throws Exception
 	 */
-	public Map<Platform, List<File>> runGOOLCompiler(ParseGOOL parserIn, Platform outPlatform, String input) throws Exception {
+	/*public Map<Platform, List<File>> runGOOLCompiler(ParseGOOL parserIn, Platform outPlatform, String input) throws Exception {
 		Collection<ClassDef> classDefs = concretePlatformeToAbstractGool(parserIn,outPlatform, input);
 		return abstractGool2Target(classDefs);
-	}
+	}*/
 
 	/**
 	 * Taking concrete Language into concrete Target is done in two steps: - we
@@ -275,10 +321,10 @@ public class GOOLCompiler {
 	 * @return a map of the compiled files for the different platforms
 	 * @throws Exception
 	 */
-	public Map<Platform, List<File>> runGOOLCompiler(ParseGOOL parserIn, Platform outPlatform, Collection<? extends File> inputFiles) throws Exception {
+	/*public Map<Platform, List<File>> runGOOLCompiler(ParseGOOL parserIn, Platform outPlatform, Collection<? extends File> inputFiles) throws Exception {
 		Collection<ClassDef> classDefs = concretePlatformeToAbstractGool(parserIn,outPlatform, inputFiles);
 		return abstractGool2Target(classDefs);
-	}
+	}*/
 
 	/**
 	 * Parsing the concrete Language into abstract GOOL is done by a Parser.
@@ -292,7 +338,7 @@ public class GOOLCompiler {
 	 * @return abstract GOOL classes
 	 * @throws Exception
 	 */
-	private static Collection<ClassDef> concretePlatformeToAbstractGool(
+	private Collection<ClassDef> concretePlatformeToAbstractGool(
 			ParseGOOL parserIn, Platform outPlatform, String input) throws Exception {
 		return parserIn.parseGool(outPlatform, input);
 	}
@@ -309,7 +355,7 @@ public class GOOLCompiler {
 	 * @return abstract GOOL classes
 	 * @throws Exception
 	 */
-	private static Collection<ClassDef> concretePlatformeToAbstractGool(
+	private Collection<ClassDef> concretePlatformeToAbstractGool(
 			ParseGOOL parserIn, Platform outPlatform, Collection<? extends File> inputFiles) throws Exception {
 		return parserIn.parseGool(outPlatform,inputFiles);
 	}
@@ -403,9 +449,9 @@ public class GOOLCompiler {
 	 * @return a map of the compiled files for the different platforms
 	 * @throws FileNotFoundException
 	 */
-	private static Map<Platform, List<File>> abstractGool2Target(
+	/*private Map<Platform, List<File>> abstractGool2Target(
 			Collection<ClassDef> classDefs) throws FileNotFoundException {
 		return GeneratorHelper.printClassDefs(classDefs);
-	}
+	}*/
 
 }

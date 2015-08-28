@@ -98,14 +98,16 @@ public class SettingsPanel extends JFrame {
 		okButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				saveAndClose();
+				//saveAndClose();
+				// TODO commenté pour eviter les erreurs de compilation
 			}
 		});
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				close();
+				// TODO commenté pour eviter les erreurs de compilation
+				//close();
 			}
 		});
 
@@ -124,7 +126,8 @@ public class SettingsPanel extends JFrame {
 	/**
 	 * Method called by pressing the 'ok' button
 	 */
-	private void saveAndClose() {
+	// TODO commenté pour eviter les erreurs de compilation
+	/*private void saveAndClose() {
 
 		for (Entry<String, JTextField> entry : textFields.entrySet()) {
 			properties.setProperty(entry.getKey(), entry.getValue().getText());
@@ -132,22 +135,24 @@ public class SettingsPanel extends JFrame {
 		properties.list(System.out);
 		close();
 		continueGoolCompiler();
-	}
+	}*/
 
 	/**
 	 * Method called by pressing the 'cancel' button
 	 */
-	private void close() {
+	// TODO commenté pour eviter les erreurs de compilation
+	/*private void close() {
 		this.setVisible(false);
 		this.dispose();
 		continueGoolCompiler();
-	}
+	}*/
 	
 	/**
 	 * After settings properties, this method launch the translation
 	 */
-	private void continueGoolCompiler(){
+	// TODO commenté pour eviter les erreurs de compilation
+	/*private void continueGoolCompiler(){
 		GOOLCompiler.launchTranslation();
-	}
+	}*/
 
 }
